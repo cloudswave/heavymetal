@@ -29,5 +29,10 @@ class IndexController extends HomeController {
                  
         $this->display();
     }
+    
+    public function gis(){
+
+        //$this->redirect('Admin/Gis/', 5, '页面跳转中...');
+    }
 
 }

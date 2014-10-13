@@ -306,7 +306,8 @@ select {
 
 /* 头部Logo,主导航*/
 .header {
-    background-color: #353535;
+    _background-color: #353535;
+    background-color:#3F946B;
 }
 .header .logo {
     background: url(../images/blue_color/bg_icon.png) no-repeat 0 -45px;

@@ -58,6 +58,8 @@ class AdminController extends Controller {
                 $this->error('未授权访问!');
             }
         }
+        trace($this->getMenus(),'menu');
+        //dump($this->getMenus());
         $this->assign('__MENU__', $this->getMenus());
     }
 
@@ -262,9 +264,11 @@ class AdminController extends Controller {
                     $menus['main'][$key]['class']='current';
                 }
             }
-
+            
+            
             // 查找当前子菜单
             $pid = M('Menu')->where("pid !=0 AND url like '%{$controller}/".ACTION_NAME."%'")->getField('pid');
+            //trace($pid."___".$controller."/".ACTION_NAME);
             if($pid){
                 // 查找当前主菜单
                 $nav =  M('Menu')->find($pid);
