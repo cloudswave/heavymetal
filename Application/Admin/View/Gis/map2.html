@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Create web map from JSON</title>
+
+    <link rel="stylesheet" href="http://js.arcgis.com/3.11/dijit/themes/claro/claro.css"/>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.11/esri/css/esri.css" />
+    <link rel="stylesheet" href="layout.css"/>
+
+
+    <script src="http://js.arcgis.com/3.11/"></script>
+    <script>
+
+      require([
+        "dojo/parser",
+        "dojo/ready",
+        "dijit/layout/BorderContainer",
+        "dijit/layout/ContentPane",
+        "dojo/dom",
+        "esri/map", 
+        "esri/geometry/Extent",
+        "esri/urlUtils",
+        "esri/arcgis/utils",
+        "esri/dijit/Legend",
+        "esri/dijit/Scalebar",
+        "dojo/domReady!"
+      ], function(
+        parser,
+        ready,
+        BorderContainer,
+        ContentPane,
+        dom,
+        Map,
+        Extent,
+        urlUtils,
+        arcgisUtils,
+        Legend,
+        Scalebar
+      ) {
+        ready(function(){
+
+        parser.parse();
+
+        var webmap = {};
+        webmap.item = {
+          "title":"产地环境安全管理系统",
+          "snippet": "重金属",
+           "extent": [[108, 29],[115, 32]]
+        };
+
+        webmap.itemData = {
+          "operationalLayers": [{
+            "url": "http://192.168.24.210/ArcGIS/rest/services/HeavyMetal/FeatureServer/1",
+            "visibility": true,
+            "opacity": 0.75,
+            "title": "重金属图层",
+            "itemId": ""
+          }],
+          "baseMap": {
+            "baseMapLayers": [{
+              "opacity": 1,
+              "visibility": true,
+              "url": "http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer"
+              }],
+            "title": "World"
+          },
+          "version": "1.1"
+        };
+
+        dom.byId("title").innerHTML = webmap.item.title;
+        dom.byId("subtitle").innerHTML = webmap.item.snippet;
+
+        arcgisUtils.createMap(webmap,"map").then(function(response){
+
+
+          var map = response.map;
+
+
+
+          //add the scalebar 
+          var scalebar = new Scalebar({
+            map: map,
+            scalebarUnit: "english"
+          });
+
+          //add the legend. Note that we use the utility method getLegendLayers to get 
+          //the layers to display in the legend from the createMap response.
+          var legendLayers = arcgisUtils.getLegendLayers(response); 
+          var legendDijit = new Legend({
+            map: map,
+            layerInfos: legendLayers
+          },"legend");
+          legendDijit.startup();
+
+
+        });
+
+
+        });
+
+      });
+
+    </script>
+  </head>
+
+  <body class="claro">
+    <div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline'" style="width:100%; height:100%;">
+      <div id="header" class="shadow roundedCorners" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'">
+        <div id="title"></div>
+        <div id="subtitle"></div>
+      </div>
+      <div id="map" class="roundedCorners shadow" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"></div>
+      <div id="rightPane" class="roundedCorners shadow" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'right'" >
+        <div id="legend"></div>
+      </div>
+    </div>
+  </body>
+</html>
