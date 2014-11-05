@@ -990,7 +990,7 @@ CREATE TABLE `hm_ucenter_member` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 INSERT INTO `hm_ucenter_member` (`id`, `username`, `password`, `email`, `mobile`, `reg_time`, `reg_ip`, `last_login_time`, `last_login_ip`, `update_time`, `status`) VALUES
-(1,	'admin',	'27b9770b61ff230bdc11e912c916b3bc',	'764724624@qq.com',	'',	1412766492,	3232241878,	1413167680,	3232241878,	1412766492,	1);
+(1,	'admin',	'3a0d278ec66e3539b2984cc0b480cefd',	'764724624@qq.com',	'',	1412766492,	3232241878,	1413167680,	3232241878,	1412766492,	1);
 
 DROP TABLE IF EXISTS `hm_ucenter_setting`;
 CREATE TABLE `hm_ucenter_setting` (
