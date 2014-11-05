@@ -8,4 +8,4 @@
 
   > /Application/User/Conf/config.php
 
-  3. 管理员账号密码：admin admin
+  3. 管理员账号密码：admin 123456
